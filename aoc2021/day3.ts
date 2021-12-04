@@ -1,21 +1,15 @@
 import { readLines } from 'https://deno.land/std/io/buffer.ts';
 
-async function parseFile(): Promise<{
-  binaryNums: string[];
-  largestPower: number;
-}> {
+async function parseFile(): Promise<string[]> {
   const result: string[] = [];
 
   const file = await Deno.open('aoc2021/day3-data.txt');
 
-  let largestPower = 0;
-
   for await (const line of readLines(file)) {
     result.push(line);
-    largestPower = Math.max(largestPower, line.length);
   }
 
-  return { largestPower, binaryNums: result };
+  return result;
 }
 
 function convertBinaryToNumber(binary: string[]): number {
@@ -29,7 +23,7 @@ function convertBinaryToNumber(binary: string[]): number {
   return result;
 }
 
-const { largestPower, binaryNums } = await parseFile();
+const binaryNums = await parseFile();
 
 // Part 1
 console.log('==== Part 1 ====');
@@ -39,14 +33,11 @@ interface CommonBits {
   leastCommonBits: string[];
 }
 
-function getMostAndLeastCommonBits(
-  binaryNums: string[],
-  largestPower: number
-): CommonBits {
+function getMostAndLeastCommonBits(binaryNums: string[]): CommonBits {
   const mostCommonBits = [];
   const leastCommonBits = [];
 
-  for (let i = 0; i < largestPower; i++) {
+  for (let i = 0; i < binaryNums[0].length; i++) {
     let zeros = 0;
     let ones = 0;
 
@@ -73,10 +64,8 @@ function getMostAndLeastCommonBits(
   };
 }
 
-const { mostCommonBits, leastCommonBits } = getMostAndLeastCommonBits(
-  binaryNums,
-  largestPower
-);
+const { mostCommonBits, leastCommonBits } =
+  getMostAndLeastCommonBits(binaryNums);
 
 const gamma = convertBinaryToNumber(mostCommonBits);
 const epsilon = convertBinaryToNumber(leastCommonBits);
@@ -92,10 +81,7 @@ let co2GeneratorRating = [...binaryNums];
 let currentIndex = 0;
 
 while (oxygenGeneratorRating.length > 1) {
-  const { mostCommonBits } = getMostAndLeastCommonBits(
-    oxygenGeneratorRating,
-    largestPower
-  );
+  const { mostCommonBits } = getMostAndLeastCommonBits(oxygenGeneratorRating);
   const mostCommonBit = mostCommonBits[currentIndex];
 
   oxygenGeneratorRating = oxygenGeneratorRating.filter(
@@ -107,10 +93,7 @@ while (oxygenGeneratorRating.length > 1) {
 currentIndex = 0;
 
 while (co2GeneratorRating.length > 1) {
-  const { leastCommonBits } = getMostAndLeastCommonBits(
-    co2GeneratorRating,
-    largestPower
-  );
+  const { leastCommonBits } = getMostAndLeastCommonBits(co2GeneratorRating);
 
   const leastCommonBit = leastCommonBits[currentIndex];
 
