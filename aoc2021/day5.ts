@@ -150,8 +150,9 @@ function evaluatePart2(
         (start.x > end.x && start.y > end.y)
       ) {
         const diagonalStartX = Math.min(start.x, end.x);
-        const diagonalEndX = Math.max(start.x, end.x);
         const diagonalStartY = Math.min(start.y, end.y);
+
+        const diagonalEndX = Math.max(start.x, end.x);
         const diagonalEndY = Math.max(start.y, end.y);
 
         for (
