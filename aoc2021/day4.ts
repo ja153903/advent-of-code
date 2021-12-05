@@ -50,7 +50,6 @@ function convertBingoBoardRowsIntoMatrices(rows: number[][], size: number): numb
 }
 
 function doesBoardHaveWinner(board: number[][]): boolean {
-  // check rows
   for (const row of board) {
     let isAllNegative = true
     for (let i = 0; i < 5; i++) {
