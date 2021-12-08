@@ -1,8 +1,8 @@
-import { readLines } from 'https://deno.land/std/io/buffer.ts';
+import { readLines } from 'https://deno.land/std/io/buffer.ts'
 
 async function parseFile(): Promise<{
-  bingoNumbers: number[];
-  bingoBoardRows: number[][];
+  bingoNumbers: number[]
+  bingoBoardRows: number[][]
 }> {
   let bingoNumbers: number[] = []
   const bingoBoardRows: number[][] = []
@@ -17,7 +17,7 @@ async function parseFile(): Promise<{
       const rowAsStr: string[] = line.trim().split(' ')
       const rowAsNum: number[] = rowAsStr
         .map((num) => parseInt(num) ?? 0)
-        .filter(num => !Number.isNaN(num))
+        .filter((num) => !Number.isNaN(num))
 
       bingoBoardRows.push(rowAsNum)
     }
@@ -29,7 +29,10 @@ async function parseFile(): Promise<{
   }
 }
 
-function convertBingoBoardRowsIntoMatrices(rows: number[][], size: number): number[][][] {
+function convertBingoBoardRowsIntoMatrices(
+  rows: number[][],
+  size: number
+): number[][][] {
   const result: number[][][] = []
 
   let subresult: number[][] = []
@@ -147,7 +150,7 @@ for (const number of bingoNumbers) {
 
     if (doesBoardHaveWinner && winners.size === bingoBoards.length) {
       const sum = sumUpNonNegativeElements(bingoBoards[i])
-      console.log (sum * number)
+      console.log(sum * number)
     }
   }
 
