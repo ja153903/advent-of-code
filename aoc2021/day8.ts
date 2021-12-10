@@ -30,14 +30,14 @@ async function parseFile(): Promise<Signal[]> {
 const signals = await parseFile()
 
 // Part 1
-const answer = signals
-  .reduce((acc, { codes }) =>
-    codes
-      .reduce((acc, code): number => {
-        const value: number = definiteValuesMap.get(code.length) ?? -1
-        return value !== -1 ? 1 + acc : acc
-      }, 0) + acc
-  , 0)
+const answer = signals.reduce(
+  (acc, { codes }) =>
+    codes.reduce((acc, code): number => {
+      const value: number = definiteValuesMap.get(code.length) ?? -1
+      return value !== -1 ? 1 + acc : acc
+    }, 0) + acc,
+  0
+)
 
 console.log(answer)
 
@@ -98,7 +98,7 @@ for (const { patterns, codes } of signals) {
           }
         }
       } else if (code.length === 6) {
-        if (code.includes(commonA) && code.includes(commonB)){
+        if (code.includes(commonA) && code.includes(commonB)) {
           if (!code.includes(uniqueA) || !code.includes(uniqueB)) {
             subresult += 9
           }
