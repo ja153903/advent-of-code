@@ -1,12 +1,12 @@
-import { readLines } from './deps.ts'
+import { readLines } from "./deps.ts"
 
 async function parseFile(): Promise<number[][]> {
   const result: number[][] = []
 
-  const file = await Deno.open('aoc2021/day9-data.txt')
+  const file = await Deno.open("aoc2021/day9-data.txt")
 
   for await (const line of readLines(file)) {
-    const nums = line.split('').map((num) => parseInt(num) ?? 0)
+    const nums = line.split("").map((num: string) => parseInt(num) ?? 0)
     result.push(nums)
   }
 

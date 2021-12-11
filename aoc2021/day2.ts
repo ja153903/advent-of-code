@@ -1,4 +1,4 @@
-import { readLines } from 'https://deno.land/std/io/buffer.ts'
+import { readLines } from "https://deno.land/std/io/buffer.ts"
 
 interface Moves {
   direction: string
@@ -8,10 +8,10 @@ interface Moves {
 async function parseFile(): Promise<Moves[]> {
   const result: Moves[] = []
 
-  const file = await Deno.open('aoc2021/day2-data.txt')
+  const file = await Deno.open("aoc2021/day2-data.txt")
 
   for await (const line of readLines(file)) {
-    const [direction, unit] = line.split(' ')
+    const [direction, unit] = line.split(" ")
 
     result.push({
       direction,
@@ -30,13 +30,13 @@ let forward = 0,
 
 for (const { direction, unit } of moves) {
   switch (direction) {
-    case 'forward':
+    case "forward":
       forward += unit
       break
-    case 'up':
+    case "up":
       depth -= unit
       break
-    case 'down':
+    case "down":
       depth += unit
       break
   }
@@ -50,14 +50,14 @@ let aim = 0
 
 for (const { direction, unit } of moves) {
   switch (direction) {
-    case 'forward':
+    case "forward":
       forward += unit
       depth += aim * unit
       break
-    case 'up':
+    case "up":
       aim -= unit
       break
-    case 'down':
+    case "down":
       aim += unit
       break
   }

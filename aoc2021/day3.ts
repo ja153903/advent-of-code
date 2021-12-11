@@ -1,9 +1,9 @@
-import { readLines } from 'https://deno.land/std/io/buffer.ts'
+import { readLines } from "https://deno.land/std/io/buffer.ts"
 
 async function parseFile(): Promise<string[]> {
   const result: string[] = []
 
-  const file = await Deno.open('aoc2021/day3-data.txt')
+  const file = await Deno.open("aoc2021/day3-data.txt")
 
   for await (const line of readLines(file)) {
     result.push(line)
@@ -16,7 +16,7 @@ function convertBinaryToNumber(binary: string[]): number {
   let result = 0
   let power = 0
   while (binary.length > 0) {
-    result += parseInt(binary.pop() ?? '0') * Math.pow(2, power)
+    result += parseInt(binary.pop() ?? "0") * Math.pow(2, power)
     power += 1
   }
 
@@ -26,7 +26,7 @@ function convertBinaryToNumber(binary: string[]): number {
 const binaryNums = await parseFile()
 
 // Part 1
-console.log('==== Part 1 ====')
+console.log("==== Part 1 ====")
 
 interface CommonBits {
   mostCommonBits: string[]
@@ -42,7 +42,7 @@ function getMostAndLeastCommonBits(binaryNums: string[]): CommonBits {
     let ones = 0
 
     for (const binaryNum of binaryNums) {
-      if (binaryNum[i] === '1') {
+      if (binaryNum[i] === "1") {
         ones += 1
       } else {
         zeros += 1
@@ -50,11 +50,11 @@ function getMostAndLeastCommonBits(binaryNums: string[]): CommonBits {
     }
 
     if (ones >= zeros) {
-      mostCommonBits.push('1')
-      leastCommonBits.push('0')
+      mostCommonBits.push("1")
+      leastCommonBits.push("0")
     } else {
-      mostCommonBits.push('0')
-      leastCommonBits.push('1')
+      mostCommonBits.push("0")
+      leastCommonBits.push("1")
     }
   }
 
@@ -73,7 +73,7 @@ const epsilon = convertBinaryToNumber(leastCommonBits)
 console.log(gamma * epsilon)
 
 // Part 2
-console.log('==== Part 2 ====')
+console.log("==== Part 2 ====")
 
 // Find oxygenGeneratorRating
 let oxygenGeneratorRating = [...binaryNums]
@@ -104,8 +104,8 @@ while (co2GeneratorRating.length > 1) {
   currentIndex += 1
 }
 
-const oxygenGeneratorRatingCandidate = oxygenGeneratorRating?.[0] ?? ''
-const co2GeneratorRatingCandidate = co2GeneratorRating?.[0] ?? ''
+const oxygenGeneratorRatingCandidate = oxygenGeneratorRating?.[0] ?? ""
+const co2GeneratorRatingCandidate = co2GeneratorRating?.[0] ?? ""
 
 const oxygen = convertBinaryToNumber([...oxygenGeneratorRatingCandidate])
 const co2 = convertBinaryToNumber([...co2GeneratorRatingCandidate])

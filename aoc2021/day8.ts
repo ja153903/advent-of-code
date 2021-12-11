@@ -1,4 +1,4 @@
-import { readLines } from './deps.ts'
+import { readLines } from "./deps.ts"
 
 const definiteValuesMap = new Map<number, number>()
 definiteValuesMap.set(2, 1)
@@ -14,13 +14,13 @@ interface Signal {
 async function parseFile(): Promise<Signal[]> {
   let results: Signal[] = []
 
-  const file = await Deno.open('aoc2021/day8-data.txt')
+  const file = await Deno.open("aoc2021/day8-data.txt")
 
   for await (const line of readLines(file)) {
-    let [patterns, codes] = line.split(' | ')
+    let [patterns, codes] = line.split(" | ")
     results.push({
-      patterns: patterns.trim().split(' '),
-      codes: codes.trim().split(' '),
+      patterns: patterns.trim().split(" "),
+      codes: codes.trim().split(" "),
     })
   }
 
@@ -48,7 +48,7 @@ function intersection(a: string, b: string): string {
   const setA = new Set([...a])
   const setB = new Set([...b])
 
-  return [...setA].filter((ch) => setB.has(ch)).join('')
+  return [...setA].filter((ch) => setB.has(ch)).join("")
 }
 
 function findIntersectionOfWords(words: string[]): string {
