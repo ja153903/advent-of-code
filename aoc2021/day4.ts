@@ -1,4 +1,4 @@
-import { readLines } from "https://deno.land/std/io/buffer.ts"
+import { readLines } from 'https://deno.land/std/io/buffer.ts'
 
 async function parseFile(): Promise<{
   bingoNumbers: number[]
@@ -7,14 +7,14 @@ async function parseFile(): Promise<{
   let bingoNumbers: number[] = []
   const bingoBoardRows: number[][] = []
 
-  const file = await Deno.open("aoc2021/day4-data.txt")
+  const file = await Deno.open('aoc2021/day4-data.txt')
 
   for await (const line of readLines(file)) {
-    if (line.includes(",")) {
-      const numbersAsStr: string[] = line.split(",")
+    if (line.includes(',')) {
+      const numbersAsStr: string[] = line.split(',')
       bingoNumbers = numbersAsStr.map((num) => parseInt(num) ?? 0)
     } else if (line.length > 0) {
-      const rowAsStr: string[] = line.trim().split(" ")
+      const rowAsStr: string[] = line.trim().split(' ')
       const rowAsNum: number[] = rowAsStr
         .map((num) => parseInt(num) ?? 0)
         .filter((num) => !Number.isNaN(num))

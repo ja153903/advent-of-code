@@ -1,9 +1,9 @@
-import { readLines } from "./deps.ts"
+import { readLines } from './deps.ts'
 
 async function parseFile(): Promise<string[]> {
   const result: string[] = []
 
-  const file = await Deno.open("aoc2021/day10-data.txt")
+  const file = await Deno.open('aoc2021/day10-data.txt')
 
   for await (const line of readLines(file)) {
     result.push(line)
@@ -15,15 +15,15 @@ async function parseFile(): Promise<string[]> {
 function getIllegalCharacter(line: string): string | null {
   const stack: string[] = []
 
-  for (const ch of line.split("")) {
-    if (ch === "(") {
-      stack.push(")")
-    } else if (ch === "{") {
-      stack.push("}")
-    } else if (ch === "[") {
-      stack.push("]")
-    } else if (ch === "<") {
-      stack.push(">")
+  for (const ch of line.split('')) {
+    if (ch === '(') {
+      stack.push(')')
+    } else if (ch === '{') {
+      stack.push('}')
+    } else if (ch === '[') {
+      stack.push(']')
+    } else if (ch === '<') {
+      stack.push('>')
     } else if (stack.length === 0 || stack.pop() !== ch) {
       return ch
     }
@@ -35,10 +35,10 @@ function getIllegalCharacter(line: string): string | null {
 const lines = await parseFile()
 
 const scores = new Map<string, number>()
-scores.set(")", 3)
-scores.set("]", 57)
-scores.set("}", 1197)
-scores.set(">", 25137)
+scores.set(')', 3)
+scores.set(']', 57)
+scores.set('}', 1197)
+scores.set('>', 25137)
 
 const illegals = new Map<string, number>()
 
@@ -63,15 +63,15 @@ console.log(part1)
 function getClosingCharacters(line: string): string[] | null {
   const stack: string[] = []
 
-  for (const ch of line.split("")) {
-    if (ch === "(") {
-      stack.push(")")
-    } else if (ch === "{") {
-      stack.push("}")
-    } else if (ch === "[") {
-      stack.push("]")
-    } else if (ch === "<") {
-      stack.push(">")
+  for (const ch of line.split('')) {
+    if (ch === '(') {
+      stack.push(')')
+    } else if (ch === '{') {
+      stack.push('}')
+    } else if (ch === '[') {
+      stack.push(']')
+    } else if (ch === '<') {
+      stack.push('>')
     } else if (stack.length === 0 || stack.pop() !== ch) {
       return null
     }
@@ -81,10 +81,10 @@ function getClosingCharacters(line: string): string[] | null {
 }
 
 const close = new Map<string, number>()
-close.set(")", 1)
-close.set("]", 2)
-close.set("}", 3)
-close.set(">", 4)
+close.set(')', 1)
+close.set(']', 2)
+close.set('}', 3)
+close.set('>', 4)
 
 const incomplete = lines
   .map((line: string) => {

@@ -1,4 +1,4 @@
-import { readLines } from "https://deno.land/std/io/buffer.ts"
+import { readLines } from 'https://deno.land/std/io/buffer.ts'
 
 interface Point {
   x: number
@@ -18,26 +18,26 @@ async function parseFile(): Promise<{
 }> {
   const result: LineSegment[] = []
 
-  const file = await Deno.open("aoc2021/day5-data.txt")
+  const file = await Deno.open('aoc2021/day5-data.txt')
 
   let maxX = 0
   let maxY = 0
 
   for await (const line of readLines(file)) {
-    const [start, end] = line.split(" -> ")
+    const [start, end] = line.split(' -> ')
 
-    const [ax, ay] = start.split(",")
-    const [bx, by] = end.split(",")
+    const [ax, ay] = start.split(',')
+    const [bx, by] = end.split(',')
 
     const startPoint: Point = { x: parseInt(ax) ?? 0, y: parseInt(ay) ?? 0 }
     const endPoint: Point = { x: parseInt(bx) ?? 0, y: parseInt(by) ?? 0 }
 
     const direction =
       startPoint.y === endPoint.y
-        ? "horizontal"
+        ? 'horizontal'
         : startPoint.x === endPoint.x
-        ? "vertical"
-        : "diagonal"
+        ? 'vertical'
+        : 'diagonal'
 
     maxX = Math.max(maxX, startPoint.x, endPoint.x)
     maxY = Math.max(maxY, startPoint.y, endPoint.y)
@@ -82,8 +82,8 @@ function countSignificantOverlaps(matrix: number[][]): number {
 function visualizeMatrix(matrix: number[][]) {
   for (const row of matrix) {
     const rowAsStr: string = row
-      .map((num) => (num === 0 ? "." : num.toString()))
-      .join("")
+      .map((num) => (num === 0 ? '.' : num.toString()))
+      .join('')
     console.log(rowAsStr)
   }
 }
@@ -98,14 +98,14 @@ function evaluatePart1(
   for (const lineSegment of lineSegments) {
     const { direction, start, end } = lineSegment
 
-    if (direction === "horizontal") {
+    if (direction === 'horizontal') {
       const horizontalStart = Math.min(start.x, end.x)
       const horizontalEnd = Math.max(start.x, end.x)
 
       for (let i = horizontalStart; i <= horizontalEnd; i++) {
         matrix[start.y][i] += 1
       }
-    } else if (direction === "vertical") {
+    } else if (direction === 'vertical') {
       const verticalStart = Math.min(start.y, end.y)
       const verticalEnd = Math.max(start.y, end.y)
 
@@ -130,14 +130,14 @@ function evaluatePart2(
   for (const lineSegment of lineSegments) {
     const { direction, start, end } = lineSegment
 
-    if (direction === "horizontal") {
+    if (direction === 'horizontal') {
       const horizontalStart = Math.min(start.x, end.x)
       const horizontalEnd = Math.max(start.x, end.x)
 
       for (let i = horizontalStart; i <= horizontalEnd; i++) {
         matrix[start.y][i] += 1
       }
-    } else if (direction === "vertical") {
+    } else if (direction === 'vertical') {
       const verticalStart = Math.min(start.y, end.y)
       const verticalEnd = Math.max(start.y, end.y)
 

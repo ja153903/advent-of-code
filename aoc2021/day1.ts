@@ -1,9 +1,9 @@
-import { readLines } from "https://deno.land/std/io/buffer.ts"
+import { readLines } from 'https://deno.land/std/io/buffer.ts'
 
 async function parseFileToArray(): Promise<number[]> {
   const result: number[] = []
 
-  const file = await Deno.open("aoc2021/day1-data.txt")
+  const file = await Deno.open('aoc2021/day1-data.txt')
 
   for await (const line of readLines(file)) {
     const num = parseInt(line)
