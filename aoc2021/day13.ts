@@ -167,10 +167,13 @@ for (const { axis, value } of instructions) {
 
   count += 1
 
+  // Part 1
   if (count === 1) {
     console.log(`The number of dots after one fold is: ${countDots(matrix)}`)
   }
 
-  print(matrix)
-  console.log()
+  // Part 2
+  if (count === instructions.length) {
+    print(matrix)
+  }
 }
