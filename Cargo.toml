@@ -1,7 +1,8 @@
 [workspace]
 
 members = [
-  "main",
+  "bootstrap_problem",
+  "main", 
   "utils",
   "years",
 ]
