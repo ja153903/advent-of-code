@@ -33,14 +33,14 @@ fn mkdir_year(year: i32) {
     let potential_year_dir = format!("{}/_{}", cwd, year);
     let path = path::Path::new(&potential_year_dir);
 
-    println!("Checking if we need to create a new directory...");
+    println!("==> Checking if we need to create a new directory...");
 
     if !path.exists() {
         fs::create_dir(path).expect("Something went wrong when creating the new path");
 
-        println!("Created a new directory at {}", potential_year_dir);
+        println!("==> Created a new directory at {}", potential_year_dir);
     } else {
-        println!("Directory at {} already exists", potential_year_dir);
+        println!("==> Directory at {} already exists", potential_year_dir);
     }
 }
 
@@ -49,14 +49,14 @@ fn mk_problem_file(year: i32, problem: i32) {
     let potential_problem_file = format!("{}/_{}/_{}.rs", cwd, year, problem);
     let path = path::Path::new(&potential_problem_file);
 
-    println!("Checking if we need to create a new file...");
+    println!("==> Checking if we need to create a new file...");
 
     if !path.exists() {
         fs::File::create(path).expect("Something went wrong when creating the new path");
 
-        println!("Created a new file at {}", potential_problem_file);
+        println!("==> Created a new file at {}", potential_problem_file);
     } else {
-        println!("File at {} already exists", potential_problem_file);
+        println!("==> File at {} already exists", potential_problem_file);
     }
 }
 
@@ -65,14 +65,14 @@ fn mk_problem_input_file(year: i32, problem: i32) {
     let potential_problem_file = format!("{}/_{}/data/_{}.in", cwd, year, problem);
     let path = path::Path::new(&potential_problem_file);
 
-    println!("Checking if we need to create a new file...");
+    println!("==> Checking if we need to create a new file...");
 
     if !path.exists() {
         fs::File::create(path).expect("Something went wrong when creating the new path");
 
-        println!("Created a new file at {}", potential_problem_file);
+        println!("==> Created a new file at {}", potential_problem_file);
     } else {
-        println!("File at {} already exists", potential_problem_file);
+        println!("==> File at {} already exists", potential_problem_file);
     }
 }
 
@@ -88,7 +88,7 @@ fn update_mod(year: i32, problem: i32) {
     file.write_all(line.as_bytes())
         .expect("Could not write to mod file properly");
 
-    println!("Updated mod.rs with pub mod _{}", problem);
+    println!("==> Updated mod.rs with pub mod _{};", problem);
 }
 
 fn main() {

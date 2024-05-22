@@ -12,5 +12,5 @@ fn main() {
     workspace_initialized_log();
 
     // NOTE: We change this based on which problem we're running
-    years::_2015::_3::main();
+    years::_2015::_5::main();
 }

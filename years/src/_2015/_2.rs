@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 
-use utils::fs::{get_file_content, GetFileContentOptions};
+use utils::fs::{get_file_content, split_by_line, GetFileContentOptions};
 
 pub struct BoxMetadata {
     pub length: i32,
@@ -36,8 +36,7 @@ impl BoxMetadata {
 }
 
 pub fn parse_file_content(data: &str) -> Vec<BoxMetadata> {
-    data.split("\n")
-        .filter(|it| !it.is_empty())
+    split_by_line(data)
         .into_iter()
         .map(|it| {
             let mut parts = it.split("x");

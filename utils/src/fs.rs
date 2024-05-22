@@ -1,5 +1,7 @@
 use std::env;
 use std::fs;
+use std::iter;
+use std::str;
 
 pub struct ProblemMetadata {
     pub year: i32,
@@ -35,6 +37,8 @@ pub struct GetFileContentOptions<'a> {
     pub error_message: &'a str,
 }
 
+/// get_file_content reads an input file that we've created
+/// for some advent of code problem and returns the content as a String
 pub fn get_file_content(options: GetFileContentOptions) -> String {
     let filepath = get_path_to_file(GetPathToFileOptions {
         is_test: options.is_test,
@@ -45,4 +49,8 @@ pub fn get_file_content(options: GetFileContentOptions) -> String {
     });
 
     fs::read_to_string(filepath).expect(options.error_message)
+}
+
+pub fn split_by_line(s: &str) -> impl Iterator<Item = &str> {
+    s.split("\n").filter(|it| !it.is_empty())
 }
