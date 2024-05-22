@@ -87,6 +87,8 @@ fn update_mod(year: i32, problem: i32) {
     let line = format!("pub mod _{};", problem);
     file.write_all(line.as_bytes())
         .expect("Could not write to mod file properly");
+
+    println!("Updated mod.rs with pub mod _{}", problem);
 }
 
 fn main() {

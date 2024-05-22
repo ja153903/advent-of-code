@@ -22,7 +22,7 @@ pub fn get_path_to_file(options: GetPathToFileOptions) -> String {
     } else {
         format!(
             "{}/years/src/_{}/data/_{}.test.in",
-           cwd, options.problem.year, options.problem.day
+            cwd, options.problem.year, options.problem.day
         )
     }
 }
