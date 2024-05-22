@@ -1,4 +1,5 @@
 use std::env;
+use std::fs;
 
 pub struct ProblemMetadata {
     pub year: i32,
@@ -25,4 +26,23 @@ pub fn get_path_to_file(options: GetPathToFileOptions) -> String {
             cwd, options.problem.year, options.problem.day
         )
     }
+}
+
+pub struct GetFileContentOptions<'a> {
+    pub year: i32,
+    pub day: i32,
+    pub is_test: bool,
+    pub error_message: &'a str,
+}
+
+pub fn get_file_content(options: GetFileContentOptions) -> String {
+    let filepath = get_path_to_file(GetPathToFileOptions {
+        is_test: options.is_test,
+        problem: ProblemMetadata {
+            year: options.year,
+            day: options.day,
+        },
+    });
+
+    fs::read_to_string(filepath).expect(options.error_message)
 }
