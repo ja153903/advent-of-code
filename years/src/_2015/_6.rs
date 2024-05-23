@@ -1,5 +1,7 @@
 #![allow(unused_variables, dead_code)]
 
+use std::collections::HashMap;
+
 use utils::fs::{get_file_content, split_by_line, GetFileContentOptions};
 
 #[derive(Debug)]
@@ -59,6 +61,44 @@ pub fn main() {
     let instructions = split_by_line(&file_content)
         .map(|it| Instruction::from(it))
         .collect::<Vec<Instruction>>();
+
+    let mut state: HashMap<(i32, i32), bool> = HashMap::new();
+
+    instructions.iter().for_each(|it| {
+        for i in it.start_coordinate.x..=it.end_coordinate.x {
+            for j in it.start_coordinate.y..=it.end_coordinate.y {
+                match it.command {
+                    Command::Toggle => {
+                        state
+                            .entry((i, j))
+                            .and_modify(|e| {
+                                *e = !*e;
+                            })
+                            .or_insert(true);
+                    }
+                    Command::TurnOn => {
+                        state
+                            .entry((i, j))
+                            .and_modify(|e| *e = true)
+                            .or_insert(true);
+                    }
+                    Command::TurnOff => {
+                        state
+                            .entry((i, j))
+                            .and_modify(|e| *e = false)
+                            .or_insert(false);
+                    }
+                    Command::Error => {
+                        panic!("Something went wrong at some point when parsing")
+                    }
+                }
+            }
+        }
+    });
+
+    let part1 = state.values().filter(|&it| *it).count();
+
+    println!("Part 1: {}", part1);
 
     println!("==================================");
 }
