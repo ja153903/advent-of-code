@@ -1,5 +1,6 @@
 #![allow(unused_variables, dead_code)]
 
+use regex::Regex;
 use std::collections::HashMap;
 
 use utils::fs::{get_file_content, split_by_line, GetFileContentOptions};
@@ -35,14 +36,31 @@ impl Instruction {
         }
     }
 
+    fn get_coordinate_from_str(coordinate_as_str: &str) -> Coordinate {
+        let mut parts = coordinate_as_str.split(",");
+        let x = parts.next().unwrap().parse::<i32>().unwrap();
+        let y = parts.next().unwrap().parse::<i32>().unwrap();
+
+        Coordinate { x, y }
+    }
+
     /// `from` allows us to create an Instruction instance
     /// from some line of text
     fn from(line: &str) -> Instruction {
-        // TODO: Add more detail to this method
+        let re = Regex::new(
+            r"(?P<command>(toggle|turn off|turn on)) (?P<start_coordinate_str>\d+,\d+) through (?P<end_coordinate_str>\d+,\d+)",
+        ).unwrap();
+
+        let caps = re.captures(line).unwrap();
+
+        let command = Instruction::get_command_from_str(&caps["command"]);
+        let start_coordinate = Instruction::get_coordinate_from_str(&caps["start_coordinate_str"]);
+        let end_coordinate = Instruction::get_coordinate_from_str(&caps["end_coordinate_str"]);
+
         Instruction {
-            command: Command::Toggle,
-            start_coordinate: Coordinate { x: 0, y: 0 },
-            end_coordinate: Coordinate { x: 0, y: 0 },
+            command,
+            start_coordinate,
+            end_coordinate,
         }
     }
 }
@@ -99,6 +117,48 @@ pub fn main() {
     let part1 = state.values().filter(|&it| *it).count();
 
     println!("Part 1: {}", part1);
+
+    let mut state: HashMap<(i32, i32), i32> = HashMap::new();
+
+    instructions.iter().for_each(|it| {
+        for i in it.start_coordinate.x..=it.end_coordinate.x {
+            for j in it.start_coordinate.y..=it.end_coordinate.y {
+                match it.command {
+                    Command::Toggle => {
+                        state
+                            .entry((i, j))
+                            .and_modify(|e| {
+                                *e += 2;
+                            })
+                            .or_insert(2);
+                    }
+                    Command::TurnOn => {
+                        state
+                            .entry((i, j))
+                            .and_modify(|e| {
+                                *e += 1;
+                            })
+                            .or_insert(1);
+                    }
+                    Command::TurnOff => {
+                        state
+                            .entry((i, j))
+                            .and_modify(|e| {
+                                *e = 0.max(*e - 1);
+                            })
+                            .or_insert(0);
+                    }
+                    Command::Error => {
+                        panic!("Something went wrong at some point when parsing")
+                    }
+                }
+            }
+        }
+    });
+
+    let part2 = state.values().sum::<i32>();
+
+    println!("Part 2: {}", part2);
 
     println!("==================================");
 }

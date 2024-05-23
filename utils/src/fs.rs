@@ -1,6 +1,5 @@
 use std::env;
 use std::fs;
-use std::iter;
 use std::str;
 
 pub struct ProblemMetadata {
