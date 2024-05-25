@@ -135,8 +135,13 @@ pub fn main() {
     let mut state: HashMap<&str, Option<i32>> = HashMap::new();
 
     while !are_all_registers_filled(&state) {
-        // TODO: Fill in logic here for looping through
-        // until we have a full state
+        instructions
+            .iter()
+            .for_each(|instruction| match &instruction.instruction_type {
+                InstructionType::Negation(ins) => {}
+                InstructionType::SignalProvision(ins) => {}
+                InstructionType::Operation(ins) => {}
+            });
     }
 
     let part1 = state.get("a").unwrap();
