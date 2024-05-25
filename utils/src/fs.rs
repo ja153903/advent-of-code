@@ -50,6 +50,10 @@ pub fn get_file_content(options: GetFileContentOptions) -> String {
     fs::read_to_string(filepath).expect(options.error_message)
 }
 
+/// split_by_line takes a string and splits the string by line
+/// while also removing any empty lines after the split
+/// this then returns an iterator that we can continue
+/// to chain with other methods
 pub fn split_by_line(s: &str) -> impl Iterator<Item = &str> {
     s.split("\n").filter(|it| !it.is_empty())
 }

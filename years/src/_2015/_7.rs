@@ -113,6 +113,10 @@ impl Instruction {
     }
 }
 
+fn are_all_registers_filled(state: &HashMap<&str, Option<i32>>) -> bool {
+    !state.is_empty() && state.len() == state.values().filter(|it| it.is_some()).count()
+}
+
 pub fn main() {
     println!("==================================");
     println!("Advent of Code - Year 2015 - Day 7");
@@ -128,11 +132,28 @@ pub fn main() {
         .map(|it| Instruction::from(it))
         .collect::<Vec<Instruction>>();
 
-    let mut state: HashMap<&str, i32> = HashMap::new();
+    let mut state: HashMap<&str, Option<i32>> = HashMap::new();
 
-    println!("Part 1: {}", state.get("a").unwrap());
+    while !are_all_registers_filled(&state) {
+        // TODO: Fill in logic here for looping through
+        // until we have a full state
+    }
+
+    let part1 = state.get("a").unwrap();
+    // NOTE: This is a variable that we're setting for part 2
+    let mut for_part2 = 0;
+    if let Some(value) = part1 {
+        for_part2 = *value;
+        println!("Part 1: {}", value);
+    }
+
+    state.clear();
+
+    state.entry("b").and_modify(|e| {
+        *e = Some(for_part2);
+    });
+
     println!("Part 2: {}", "");
-
 
     println!("==================================");
 }
