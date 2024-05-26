@@ -5,7 +5,7 @@ use std::collections::HashMap;
 
 use utils::fs::{get_file_content, split_by_line, GetFileContentOptions};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Operator {
     And,
     Or,
@@ -27,32 +27,32 @@ impl Operator {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct SignalProvision {
     pub signal: String,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Negation {
     pub signal: String,
     pub operator: Operator,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Operation {
     pub signal1: String,
     pub signal2: String,
     pub operator: Operator,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum InstructionType {
     SignalProvision(SignalProvision),
     Negation(Negation),
     Operation(Operation),
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Instruction {
     pub instruction_type: InstructionType,
     pub register: String,
