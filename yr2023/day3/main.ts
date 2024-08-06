@@ -9,19 +9,74 @@ async function readData() {
     .map((line) => line.split(""));
 }
 
-const data = await readData();
+type QueueItem = [number, number];
 
-// find all symbols
-// then for each symbol, we should look around it
-// make sure that we do this in a breadth first search
-// manner and then change the number to dots so we don't
-// double up the numbers
-// this probably means that we want to work with a clone
-// of the data rather than the original data that we read in
-// because we're mutating everything
-function solvePart1(data: string[][]) {}
+function isSymbol(char: string): boolean {
+  if (char >= "0" && char <= "9") {
+    return false;
+  }
 
-function solvePart2(data: string[][]) {}
+  if (char === ".") {
+    return false;
+  }
 
-solvePart1(data);
-solvePart2(data);
+  return true;
+}
+
+function enqueueSymbols(data: string[][]): QueueItem[] {
+  const items: QueueItem[] = [];
+
+  for (let i = 0; i < data.length; i += 1) {
+    for (let j = 0; j < data[i].length; j += 1) {
+      if (isSymbol(data[i][j])) {
+        items.push([i, j]);
+      }
+    }
+  }
+
+  return items;
+}
+
+const DIRS = [
+  [0, 1],
+  [1, 0],
+  [1, 1],
+  [-1, 0],
+  [0, -1],
+  [-1, -1],
+  [-1, 1],
+  [1, -1],
+];
+
+// TODO: Figure out how should this should be implemented
+function collectPartNumbers(data: string[][], origin: QueueItem): number[] {
+  // for each origin, we should look around to see if there are any numbers
+  // this should be done in a BFS manner so we can easily remove overlapping items
+  const visited = new Set<string>();
+  const partNumbers: number[] = [];
+
+  for (const [dx, dy] of DIRS) {
+    const cx = origin[0] + dx;
+    const cy = origin[1] + dy;
+  }
+
+  return partNumbers;
+}
+
+async function solvePart1() {
+  const data = await readData();
+  const origins = enqueueSymbols(data);
+  let result = 0;
+
+  for (const origin of origins) {
+    const partNumbers = collectPartNumbers(data, origin);
+    result += partNumbers.reduce((acc, num) => acc + num, 0);
+  }
+
+  console.log(`Year 2023 - Day 3 - Part 1: ${result}`);
+}
+
+function solvePart2() {}
+
+solvePart1();
+solvePart2();
