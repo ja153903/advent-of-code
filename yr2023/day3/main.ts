@@ -7,7 +7,7 @@ async function readData() {
   const text = await file.text();
   return text
     .split("\n")
-    .filter((line) => line.length > 0)
+    .filter(Boolean)
     .map((line) => line.split(""));
 }
 

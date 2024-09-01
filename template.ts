@@ -3,14 +3,14 @@ async function readData() {
   const file = Bun.file(filepath);
 
   const text = await file.text();
-  return text.split("\n").filter((line) => line.length > 0);
+  return text.split("\n").filter(Boolean);
 }
 
 const data = await readData();
 
-function solvePart1(data: string[]) {}
+function solvePart1(data: string[]) { }
 
-function solvePart2(data: string[]) {}
+function solvePart2(data: string[]) { }
 
 solvePart1(data);
 solvePart2(data);

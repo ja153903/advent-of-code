@@ -3,7 +3,7 @@ async function readData() {
   const file = Bun.file(filepath);
 
   const text = await file.text();
-  return text.split("\n").filter((line) => line.length > 0);
+  return text.split("\n").filter(Boolean);
 }
 
 const data = await readData();
