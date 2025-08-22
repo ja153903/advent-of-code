@@ -49,5 +49,5 @@ async function solve(
     );
 }
 
-solve(solvePart1, '1');
-solve(solvePart2, '2');
+await solve(solvePart1, '1');
+await solve(solvePart2, '2');

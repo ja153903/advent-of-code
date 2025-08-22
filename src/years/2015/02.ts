@@ -68,10 +68,9 @@ function solvePart2(prisms: Prism[]) {
 async function solve(solveFn: (prisms: Prism[]) => number, part: string) {
   await readFileToString(FILEPATH)
     .andThen(splitByNewline)
-    .map((lines: string[]) => lines.map((line) => parsePrism(line)))
-    .andThen((prisms) => Result.combine(prisms))
+    .andThen((lines: string[]) => Result.combine(lines.map(parsePrism)))
     .match(
-      (prisms: Prism[]) => {
+      (prisms) => {
         const result = solveFn(prisms);
         console.log(`Advent of Code 2015 - Day 02 - Part ${part}: ${result}`);
       },
@@ -81,5 +80,5 @@ async function solve(solveFn: (prisms: Prism[]) => number, part: string) {
     );
 }
 
-solve(solvePart1, '1');
-solve(solvePart2, '2');
+await solve(solvePart1, '1');
+await solve(solvePart2, '2');
