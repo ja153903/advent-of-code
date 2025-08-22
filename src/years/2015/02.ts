@@ -25,20 +25,12 @@ function parsePrism(line: string): Result<Prism, unknown> {
   });
 }
 
-function getSurfaceArea(prism: Prism) {
-  return (
-    2 * prism.height * prism.length +
-    2 * prism.length * prism.width +
-    2 * prism.height * prism.width
-  );
+function getSurfaceArea({ height, length, width }: Prism) {
+  return 2 * height * length + 2 * length * width + 2 * height * width;
 }
 
-function getSmallestArea(prism: Prism) {
-  return Math.min(
-    prism.height * prism.length,
-    prism.height * prism.width,
-    prism.length * prism.width
-  );
+function getSmallestArea({ height, length, width }: Prism) {
+  return Math.min(height * length, height * width, length * width);
 }
 
 function solvePart1(prisms: Prism[]) {
@@ -47,15 +39,15 @@ function solvePart1(prisms: Prism[]) {
   }, 0);
 }
 
-function getVolume(prism: Prism) {
-  return prism.height * prism.length * prism.width;
+function getVolume({ height, length, width }: Prism) {
+  return height * length * width;
 }
 
-function getSmallestPerimeter(prism: Prism) {
+function getSmallestPerimeter({ height, length, width }: Prism) {
   return Math.min(
-    2 * prism.height + 2 * prism.length,
-    2 * prism.height + 2 * prism.width,
-    2 * prism.length + 2 * prism.width
+    2 * height + 2 * length,
+    2 * height + 2 * width,
+    2 * length + 2 * width
   );
 }
 
