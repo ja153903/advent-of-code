@@ -1,5 +1,6 @@
 import { ok, Result, err } from 'neverthrow';
 import { readFileToString } from '../../lib/file-io';
+import { logError } from '../../lib/log';
 
 const FILEPATH = './data/years/2015/02.txt';
 
@@ -34,9 +35,11 @@ function getSmallestArea({ height, length, width }: Prism) {
 }
 
 function solvePart1(prisms: Prism[]) {
-  return prisms.reduce((acc, prism) => {
-    return acc + getSurfaceArea(prism) + getSmallestArea(prism);
-  }, 0);
+  return ok(
+    prisms.reduce((acc, prism) => {
+      return acc + getSurfaceArea(prism) + getSmallestArea(prism);
+    }, 0)
+  );
 }
 
 function getVolume({ height, length, width }: Prism) {
@@ -52,25 +55,27 @@ function getSmallestPerimeter({ height, length, width }: Prism) {
 }
 
 function solvePart2(prisms: Prism[]) {
-  return prisms.reduce((acc, prism) => {
-    return acc + getVolume(prism) + getSmallestPerimeter(prism);
-  }, 0);
+  return ok(
+    prisms.reduce((acc, prism) => {
+      return acc + getVolume(prism) + getSmallestPerimeter(prism);
+    }, 0)
+  );
 }
 
-async function solve(solveFn: (prisms: Prism[]) => number, part: string) {
+async function solve(
+  solveFn: (prisms: Prism[]) => Result<number, unknown>,
+  logAnswer: (result: number) => void
+) {
   await readFileToString(FILEPATH)
     .andThen(splitByNewline)
     .andThen((lines: string[]) => Result.combine(lines.map(parsePrism)))
-    .match(
-      (prisms) => {
-        const result = solveFn(prisms);
-        console.log(`Advent of Code 2015 - Day 02 - Part ${part}: ${result}`);
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
+    .andThen((prisms: Prism[]) => solveFn(prisms))
+    .match(logAnswer, logError);
 }
 
-await solve(solvePart1, '1');
-await solve(solvePart2, '2');
+await solve(solvePart1, (result: number) => {
+  console.log(`Advent of Code 2015 - Day 02 - Part 1: ${result}`);
+});
+await solve(solvePart2, (result: number) => {
+  console.log(`Advent of Code 2015 - Day 02 - Part 2: ${result}`);
+});

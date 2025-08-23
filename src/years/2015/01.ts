@@ -1,5 +1,6 @@
 import { type Result, ok, err } from 'neverthrow';
 import { readFileToString } from '../../lib/file-io';
+import { logError } from '../../lib/log';
 
 const FILEPATH = `./data/years/2015/01.txt`;
 
@@ -35,19 +36,14 @@ function solvePart2(input: string) {
 
 async function solve(
   solveFn: (input: string) => Result<number, unknown>,
-  part: string
+  logAnswer: (result: number) => void
 ) {
-  await readFileToString(FILEPATH)
-    .andThen(solveFn)
-    .match(
-      (result) => {
-        console.log(`Advent of Code 2015 - Day 01 - Part ${part}: ${result}`);
-      },
-      (e) => {
-        console.error(e);
-      }
-    );
+  await readFileToString(FILEPATH).andThen(solveFn).match(logAnswer, logError);
 }
 
-await solve(solvePart1, '1');
-await solve(solvePart2, '2');
+await solve(solvePart1, (result: number) => {
+  console.log(`Advent of Code 2015 - Day 01 - Part 1: ${result}`);
+});
+await solve(solvePart2, (result: number) => {
+  console.log(`Advent of Code 2015 - Day 01 - Part 2: ${result}`);
+});
