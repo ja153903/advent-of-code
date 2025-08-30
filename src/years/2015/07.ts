@@ -152,7 +152,7 @@ function evaluate(state: State, gateOperation: GateOperation) {
 
 function solvePart1(operations: GateOperation[]) {
   const state = new Map<string, number>();
-  while (state.get('a') == null) {
+  while (!state.has('a')) {
     for (const operation of operations) {
       evaluate(state, operation);
     }
@@ -170,7 +170,7 @@ function solvePart2(operations: GateOperation[]) {
   const state = new Map<string, number>();
   state.set('b', 3176);
 
-  while (state.get('a') == null) {
+  while (!state.has('a')) {
     for (const operation of operations) {
       if (operation.output === 'b') {
         continue;
