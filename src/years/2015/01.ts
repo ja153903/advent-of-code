@@ -2,7 +2,7 @@ import { type Result, ok, err } from 'neverthrow';
 import { readFileToString } from '../../lib/file-io';
 import { logError } from '../../lib/log';
 
-const FILEPATH = `./data/years/2015/01.txt`;
+const FILEPATH = './data/years/2015/01.txt';
 
 function solvePart1(input: string) {
   let floor = 0;

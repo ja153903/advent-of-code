@@ -1,4 +1,4 @@
-import { createHash } from 'crypto';
+import { createHash } from 'node:crypto';
 import { ok } from 'neverthrow';
 
 const INPUT = 'iwrupvqb';

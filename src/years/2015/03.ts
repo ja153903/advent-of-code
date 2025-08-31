@@ -5,8 +5,8 @@ import { logError } from '../../lib/log';
 const FILEPATH = './data/years/2015/03.txt';
 
 function solvePart1(input: string) {
-  let x = 0,
-    y = 0;
+  let x = 0;
+  let y = 0;
   const visited = new Set<string>();
 
   visited.add(`${x},${y}`);
@@ -29,10 +29,10 @@ function solvePart1(input: string) {
 }
 
 function solvePart2(input: string) {
-  let x = 0,
-    y = 0;
-  let rx = 0,
-    ry = 0;
+  let x = 0;
+  let y = 0;
+  let rx = 0;
+  let ry = 0;
   const visited = new Set<string>();
 
   visited.add(`${x},${y}`);
